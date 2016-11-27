@@ -1,7 +1,8 @@
 #include "gdt.h"
 
 void set_gdt_gate(int index,  uint32_t base, \
-                  uint32_t limit, uint8_t access, uint8_t granularity) {
+                  uint32_t limit, uint8_t access, uint8_t granularity)
+{
     // encode the descriptor base address
     gdt[index].base_low = (base & 0xFFFF);
     gdt[index].base_middle = (base >> 16) & 0xFF;
@@ -14,7 +15,8 @@ void set_gdt_gate(int index,  uint32_t base, \
     gdt[index].access = access;
 }
 
-void install_gdt() {
+void install_gdt()
+{
     // set up pointer to gdt
     gdt_p.limit = (sizeof(gdt_entry_t) * 3) - 1;
     gdt_p.base = &gdt;

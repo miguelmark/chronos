@@ -1,7 +1,9 @@
 #include "clock.h"
 
-void set_clock_phase(int hz) {
-    if(hz <= 0) {
+void set_clock_phase(int hz)
+{
+    if(hz <= 0)
+    {
         return;
     }
     int divisor = CLOCK_FREQUENCY / hz;

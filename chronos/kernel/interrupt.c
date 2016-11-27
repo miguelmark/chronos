@@ -1,22 +1,27 @@
 #include "interrupt.h"
 
-void set_isr_handler(int isr_id, void (*handler)(interrupt_t*)) {
+void set_isr_handler(int isr_id, void (*handler)(interrupt_t*))
+{
     isr_routines[isr_id] = handler;
 }
 
-void unset_isr_handler(int isr_id) {
+void unset_isr_handler(int isr_id)
+{
     isr_routines[isr_id] = 0;
 }
 
-void enable_hardware_interrupts() {
+void enable_hardware_interrupts()
+{
     asm volatile("sti");
 }
 
-void disable_hardware_interrupts() {
+void disable_hardware_interrupts()
+{
     asm volatile("cli");
 }
 
-void install_isr_handlers() {
+void install_isr_handlers()
+{
     /*
     By default isrs 0-7 are mapped to IDT entries 8-15.
     However these are reserved for exceptions by Intel.
@@ -75,19 +80,23 @@ void install_isr_handlers() {
 
 }
 
-void handle_interrupt(interrupt_t* intp) {
-    if(intp->interrupt_no < 32) {
+void handle_interrupt(interrupt_t* intp)
+{
+    if(intp->interrupt_no < 32)
+    {
         // hang
         for(;;);
     }
     void (*handler_func)(interrupt_t* i) = 0;
     handler_func = isr_routines[intp->interrupt_no - 32];
-    if(handler_func != 0) {
+    if(handler_func != 0)
+    {
         handler_func(intp);
     }
     // isr8 - isr15 are mapped to IDT entries
     // are napped to IDT entries 40 - 48
-    if(intp->interrupt_no >= 0x28) {
+    if(intp->interrupt_no >= 0x28)
+    {
         // send EOI (End of interrupt to slave PIC
         write_byte_to_port(PIC2, PIC_EOI);
     }

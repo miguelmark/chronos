@@ -1,6 +1,7 @@
 #include "pic.h"
 
-void remap_pic(uint16_t offset1, uint16_t offset2) {
+void remap_pic(uint16_t offset1, uint16_t offset2)
+{
     // save the interrupt mask registers
     uint8_t imr_mask1 = read_byte_from_port(PIC1_DATA);
     uint8_t imr_mask2 = read_byte_from_port(PIC2_DATA);

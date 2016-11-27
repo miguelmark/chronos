@@ -10,7 +10,8 @@
           isr = Exceptions
 */
 
-typedef struct interrupt_t {
+typedef struct interrupt_t
+{
     int32_t gs;
     int32_t fs;
     int32_t es;
@@ -32,7 +33,8 @@ typedef struct interrupt_t {
     int32_t ss;
 } interrupt_t;
 
-char* exception_messages[] = {
+char* exception_messages[] =
+{
     "Division by zero exception",
     "Debug Interrupt",
     "Non-Maskable Interrupt Exception",
@@ -65,7 +67,8 @@ char* exception_messages[] = {
     "Reserved Exception"
 };
 
-void *isr_routines[48] = {
+void *isr_routines[48] =
+{
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,

@@ -1,4 +1,4 @@
-#include "gdt.h"
+#include <kernel/gdt.h>
 
 void set_gdt_gate(int index,  uint32_t base, \
                   uint32_t limit, uint8_t access, uint8_t granularity)

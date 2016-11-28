@@ -1,5 +1,6 @@
-#include "gdt.h"
-#include "idt.h"
+#include <kernel/gdt.h>
+#include <kernel/idt.h>
+
 void kernel_main()
 {
     /* set up the global descriptor table */

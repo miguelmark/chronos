@@ -1,4 +1,4 @@
-#include "interrupt.h"
+#include <kernel/interrupt.h>
 
 void set_isr_handler(int isr_id, void (*handler)(interrupt_t*))
 {

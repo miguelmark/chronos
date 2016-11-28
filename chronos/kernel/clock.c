@@ -1,4 +1,4 @@
-#include "clock.h"
+#include <kernel/clock.h>
 
 void set_clock_phase(int hz)
 {

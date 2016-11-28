@@ -1,4 +1,4 @@
-#include "idt.h"
+#include <kernel/idt.h>
 
 void set_idt_gate(uint8_t gate, uint32_t base, \
                   uint16_t selector, uint8_t type_attr)

@@ -23,8 +23,7 @@
 #define PIC_EOI 0x20
 
 #include <stdint.h>
-
-#include "port_io.h"
+#include <asm/io.h>
 
 void remap_pic(uint16_t offset1, uint16_t offset2);
 

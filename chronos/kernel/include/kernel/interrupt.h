@@ -2,9 +2,9 @@
 #define INTERRUPT_H_INCLUDED
 
 #include <stdint.h>
-#include "int_handlers.h"
-#include "pic.h"
-#include "idt.h"
+#include <kernel/int_handlers.h>
+#include <kernel/pic.h>
+#include <kernel/idt.h>
 
 /* Notes: irq = Hardware generated interrupts
           isr = Exceptions

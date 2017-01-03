@@ -23,7 +23,7 @@ INCLUDE_STRING:=$(INCLUDE_DIRS:%=-I%)
 CC:=i686-elf-gcc
 AS:=i686-elf-as
 # Declaring some options for building
-CFLAGS?=-O2 -g
+CFLAGS?=-O0 -g
 CFLAGS:=$(CFLAGS) -std=gnu99 -ffreestanding -fbuiltin -Wall -Wextra
 CPPFLAGS:=$(INCLUDE_STRING) -D_kernel_code
 LIBFLAGS:=-nostdlib -lgcc

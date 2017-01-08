@@ -57,9 +57,9 @@ void clear_terminal();
 
 void initialize_terminal();
 
-bool can_scroll_up(unsigned int lines);
+bool can_scroll_up();
 
-bool can_scroll_down(unsigned int lines);
+bool can_scroll_down();
 
 void terminal_scroll_up(unsigned int lines);
 

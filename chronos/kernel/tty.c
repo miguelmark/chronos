@@ -65,6 +65,16 @@ bool screen_coordinate_is_valid(unsigned int row, unsigned int col)
     return row > 0 && row <= VGA_SCREEN_HEIGHT && col > 0 && col <= VGA_SCREEN_WIDTH;
 }
 
+bool can_scroll_up()
+{
+    return kernel_scrollback_buffer.display_line_start > 1;
+}
+
+bool can_scroll_down()
+{
+    return kernel_scrollback_buffer.display_line_end < kernel_scrollback_buffer.max_scrollable_rows;
+}
+
 screen_position_t get_sane_screen_coordinates(unsigned int row, unsigned int col)
 {
     // We want all row/col pairs to be non-zero based
@@ -126,18 +136,24 @@ void scrollback_scroll_down(unsigned int lines)
 
 void terminal_scroll_up(unsigned int lines)
 {
-    scrollback_scroll_up(lines);
-    clear_terminal();
-    display_scrollback();
-    terminal_set_cursor_color(terminal_cursor.color);
+    if(can_scroll_up())
+    {
+        scrollback_scroll_up(lines);
+        clear_terminal();
+        display_scrollback();
+        terminal_set_cursor_color(terminal_cursor.color);
+    }
 }
 
 void terminal_scroll_down(unsigned int lines)
 {
-    scrollback_scroll_down(lines);
-    clear_terminal();
-    display_scrollback();
-    terminal_set_cursor_color(terminal_cursor.color);
+    if(can_scroll_down())
+    {
+        scrollback_scroll_down(lines);
+        clear_terminal();
+        display_scrollback();
+        terminal_set_cursor_color(terminal_cursor.color);
+    }
 }
 
 unsigned int get_vga_buf_index_for_line(unsigned int line_no)

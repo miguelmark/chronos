@@ -5,6 +5,7 @@ PREFIX?=/usr/local
 EXEC_PREFIX?=$(PREFIX)
 BOOT_DIR=$(EXEC_PREFIX)/boot
 INCLUDE_DIR=$(PREFIX)/include
+LIB_DIR=$(PREFIX)/lib
 ASM_DIR?=asm
 
 HOST?=i686-elf
@@ -14,7 +15,7 @@ AS=$(HOST)-as
 CFLAGS=-O0 -g
 CFLAGS:=$(CFLAGS) -std=gnu99 -ffreestanding -fbuiltin -Wall -Wextra
 CPPFLAGS:=-D_kernel_code -I$(INCLUDE_DIR)
-LIBFLAGS:=-nostdlib -lgcc
+LIBFLAGS:=-nostdlib -lgcc -L$(LIB_DIR) -lk
 ASFLAGS:=-gstabs+
 
 C_SRC_FILES=$(shell find . -type f -name "*.c")
@@ -58,8 +59,7 @@ install-headers:
 	cp -rp include/* $(DEST_DIR)$(INCLUDE_DIR)
 
 clean:
-	find . -type f -name "*.o" -delete
-	find . -type f -name "*.d" -delete
+	find . -name "*.d" -o -name "*.o" -delete
 
 print-%:
 	@echo $* = $($*)

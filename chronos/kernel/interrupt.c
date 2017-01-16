@@ -1,5 +1,21 @@
 #include <kernel/interrupt.h>
 
+void *isr_routines[48] =
+{
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
+};
+
 void set_isr_handler(int isr_id, void (*handler)(interrupt_t*))
 {
     isr_routines[isr_id] = handler;
@@ -8,6 +24,32 @@ void set_isr_handler(int isr_id, void (*handler)(interrupt_t*))
 void unset_isr_handler(int isr_id)
 {
     isr_routines[isr_id] = 0;
+}
+
+void unset_isq_handler(irq_id_t id)
+{
+    unset_isr_handler(id);
+}
+
+void unset_exception_handler(proc_exception_t id)
+{
+    unset_isr_handler(id);
+}
+
+void set_irq_handler(irq_id_t id, void (*handler)(interrupt_t*))
+{
+    set_isr_handler(id, handler);
+}
+
+void set_exception_handler(proc_exception_t id, void (*handler)(interrupt_t*))
+{
+    set_isr_handler(id, handler);
+}
+
+void initialize_interrupts()
+{
+    install_isr_handlers();
+    enable_hardware_interrupts();
 }
 
 void enable_hardware_interrupts()
@@ -82,24 +124,28 @@ void install_isr_handlers()
 
 void handle_interrupt(interrupt_t* intp)
 {
-    if(intp->interrupt_no < 32)
+    int int_no = intp->interrupt_no;
+    if(int_no < 48 && int_no >= 0)
     {
-        // hang
-        for(;;);
-    }
-    void (*handler_func)(interrupt_t* i) = 0;
-    handler_func = isr_routines[intp->interrupt_no - 32];
-    if(handler_func != 0)
-    {
-        handler_func(intp);
+        void (*handler_func)(interrupt_t* i) = \
+            handler_func = isr_routines[intp->interrupt_no];
+        if(handler_func > 0)
+        {
+            handler_func(intp);
+        }
+        if(int_no < 32)
+        {
+            // halt/panic
+            for(;;) {}
+        }
     }
     // isr8 - isr15 are mapped to IDT entries
     // are napped to IDT entries 40 - 48
     if(intp->interrupt_no >= 0x28)
     {
         // send EOI (End of interrupt to slave PIC
-        write_byte_to_port(PIC2, PIC_EOI);
+        pic_signal_eoi_to_slave();
     }
     // We always send an EOI to the master PIC
-    write_byte_to_port(PIC1, PIC_EOI);
+    pic_signal_eoi_to_master();
 }

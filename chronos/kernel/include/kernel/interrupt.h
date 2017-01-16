@@ -6,9 +6,32 @@
 #include <kernel/pic.h>
 #include <kernel/idt.h>
 
-/* Notes: irq = Hardware generated interrupts
-          isr = Exceptions
-*/
+
+enum processor_exception {
+    DIVISION_BY_ZERO = 0,
+    DEBUG_INTERRUPT = 1,
+    NON_MASKABLE_INTERRUPT = 2,
+    BREAKPOINT = 3,
+    OVERFLOW = 4,
+    OUT_OF_BOUNDS = 5,
+    INVALID_OPCODE = 6,
+    NO_COPROCESSOR = 7,
+    DOUBLE_FAULT = 8,
+    COPROCESSOR_SEGMENT_OVERRUN = 9,
+    INVALID_TSS_SEGMENT = 10,
+    SEGMENT_NOT_PRESENT = 11,
+    STACK_EXCEPTION = 12,
+    GENERAL_PROTECTION_VIOLATION = 13,
+    PAGE_FAULT = 14,
+    COPROCESSOR_ERROR = 16
+};
+
+enum irq_id {
+    CLOCK = 32
+};
+
+typedef enum processor_exception proc_exception_t;
+typedef enum irq_id irq_id_t;
 
 typedef struct interrupt_t
 {
@@ -33,61 +56,17 @@ typedef struct interrupt_t
     int32_t ss;
 } interrupt_t;
 
-char* exception_messages[] =
-{
-    "Division by zero exception",
-    "Debug Interrupt",
-    "Non-Maskable Interrupt Exception",
-    "Breakpoint Exception",
-    "Into detected overflow exception",
-    "Out of Bounds Exception",
-    "Invalid Opcode Exception",
-    "No Coprocessor Exception",
-    "Double Fault Exception",
-    "Coprocessor Segment Overrun Exception",
-    "Bad TSS Segment Exception",
-    "Stack Fault Exception",
-    "General Protection Fault Exception",
-    "Page Fault Exception",
-    "Unknown Interrupt Exception",
-    "Coprocessor Fault Exception",
-    "Alignment Check Exception",
-    "Machine Check Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception",
-    "Reserved Exception"
-};
-
-void *isr_routines[48] =
-{
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0
-};
-
 void install_isr_handlers();
 
-void unset_isr_handler(int isr_id);
+void unset_isq_handler(irq_id_t id);
 
-void set_isr_handler(int isr_id, void (*handler)(interrupt_t*));
+void unset_exception_handler(proc_exception_t id);
+
+void set_irq_handler(irq_id_t id, void (*handler)(interrupt_t*));
+
+void set_exception_handler(proc_exception_t id, void (*handler)(interrupt_t*));
+
+void initialize_interrupts();
 
 void enable_hardware_interrupts();
 

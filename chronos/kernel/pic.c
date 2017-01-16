@@ -22,3 +22,13 @@ void remap_pic(uint16_t offset1, uint16_t offset2)
     write_byte_to_port(PIC1_DATA, imr_mask1);
     write_byte_to_port(PIC2_DATA, imr_mask2);
 }
+
+
+void pic_signal_eoi_to_master()
+{
+    write_byte_to_port(PIC1, PIC_EOI);
+}
+void pic_signal_eoi_to_slave()
+{
+    write_byte_to_port(PIC2, PIC_EOI);
+}

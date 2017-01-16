@@ -26,5 +26,7 @@
 #include <asm/io.h>
 
 void remap_pic(uint16_t offset1, uint16_t offset2);
+void pic_signal_eoi_to_master();
+void pic_signal_eoi_to_slave();
 
 #endif // PIC_H_INCLUDED

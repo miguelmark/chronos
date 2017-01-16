@@ -1,14 +1,8 @@
 #ifndef CLOCK_H_INCLUDED
 #define CLOCK_H_INCLUDED
+#define CLOCK_FREQUENCY 1193180
 
-#include <stdint.h>
-#include <asm/io.h>
-
-uint32_t CLOCK_DEFAULT_TICK_RATE = 1822;
-uint32_t CLOCK_FREQUENCY = 1193180; /* hz */
-
+void intstall_clock();
 /* should be set to a 100 */
-void set_clock_phase(int hz);
-
-
+void set_clock_phase(unsigned int hz);
 #endif // CLOCK_H_INCLUDED

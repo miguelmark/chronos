@@ -7,7 +7,7 @@
 #include <kernel/idt.h>
 
 
-enum processor_exception {
+enum protected_mode_exception {
     DIVISION_BY_ZERO = 0,
     DEBUG_INTERRUPT = 1,
     NON_MASKABLE_INTERRUPT = 2,
@@ -26,12 +26,26 @@ enum processor_exception {
     COPROCESSOR_ERROR = 16
 };
 
-enum irq_id {
-    CLOCK = 32
+enum isa_irq {
+    PROGRAMMABLE_INTERRUPT_TIMER = 32,
+    KEYBOARD = 33,
+    CASCADE = 34,
+    COM2 = 35,
+    COM1 = 36,
+    LPT2 = 37,
+    FLOPPY_DISK = 38,
+    LPT1 = 39,
+    CMOS_REAL_TIME_CLOCK = 40,
+    LEGACY_SCI_NIC_1 = 41,
+    LEGACY_SCI_NIC_2 = 42,
+    PS2_MOUSE = 43,
+    FPU_COPROCESSOR_INTER_PROCESSOR = 44,
+    PRIMARY_ATA_HARD_DISK = 45,
+    SECONDARY_ATA_HARD_DISK = 46
 };
 
-typedef enum processor_exception proc_exception_t;
-typedef enum irq_id irq_id_t;
+typedef enum protected_mode_exception prot_excep_t;
+typedef enum isa_irq irq_id_t;
 
 typedef struct interrupt_t
 {
@@ -60,11 +74,11 @@ void install_isr_handlers();
 
 void unset_isq_handler(irq_id_t id);
 
-void unset_exception_handler(proc_exception_t id);
+void unset_exception_handler(prot_excep_t id);
 
 void set_irq_handler(irq_id_t id, void (*handler)(interrupt_t*));
 
-void set_exception_handler(proc_exception_t id, void (*handler)(interrupt_t*));
+void set_exception_handler(prot_excep_t id, void (*handler)(interrupt_t*));
 
 void initialize_interrupts();
 

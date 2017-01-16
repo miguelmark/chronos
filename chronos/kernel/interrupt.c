@@ -31,7 +31,7 @@ void unset_isq_handler(irq_id_t id)
     unset_isr_handler(id);
 }
 
-void unset_exception_handler(proc_exception_t id)
+void unset_exception_handler(prot_excep_t id)
 {
     unset_isr_handler(id);
 }
@@ -41,7 +41,7 @@ void set_irq_handler(irq_id_t id, void (*handler)(interrupt_t*))
     set_isr_handler(id, handler);
 }
 
-void set_exception_handler(proc_exception_t id, void (*handler)(interrupt_t*))
+void set_exception_handler(prot_excep_t id, void (*handler)(interrupt_t*))
 {
     set_isr_handler(id, handler);
 }

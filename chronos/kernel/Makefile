@@ -19,7 +19,8 @@ LIBFLAGS:=-nostdlib -lgcc -L$(LIB_DIR) -lk
 ASFLAGS:=-gstabs+
 
 C_SRC_FILES=$(shell find . -type f -name "*.c")
-KERNEL_OBJS?=$(ASM_DIR)/boot.o
+ASM_SRC_FILES=$(shell find . -type f -name "*.S")
+KERNEL_OBJS?=$(ASM_SRC_FILES:.S=.S.o)
 KERNEL_OBJS+=$(C_SRC_FILES:.c=.o)
 
 ALL_OBJS=\
@@ -32,7 +33,9 @@ $(ASM_DIR)/crtn.o
 IMAGE_NAME = chronos_$(TARGET_ARCH).elf
 
 .PHONY: all clean print install-headers install-kernel install
-.SUFFIXES: .o .S .c
+.SUFFIXES: .o .S .c .S.o
+
+.SECONDARY:
 
 all: $(IMAGE_NAME)
 
@@ -46,6 +49,9 @@ $(ASM_DIR)/crtbegin.o $(ASM_DIR)/crtend.o:
 	$(CC) -c $< -o  $@ $(CFLAGS) $(CPPFLAGS)
 
 %.o: %.S
+	$(AS) $< -o $@ $(ASFLAGS)
+
+%.S.o: %.s
 	$(AS) $< -o $@ $(ASFLAGS)
 
 install: install-headers install-kernel

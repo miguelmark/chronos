@@ -1,5 +1,8 @@
 #include <kernel/gdt.h>
 
+gdt_entry_t gdt[3];
+gdt_ptr_t gdt_p;
+
 void set_gdt_gate(int index,  uint32_t base, \
                   uint32_t limit, uint8_t access, uint8_t granularity)
 {

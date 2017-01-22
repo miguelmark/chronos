@@ -1,5 +1,11 @@
 #include <kernel/idt.h>
 
+/*
+* Intel defines 256 interrupt gates
+*/
+idt_entry_t idt[256];
+idt_ptr_t idt_p;
+
 void set_idt_gate(uint8_t gate, uint32_t base, \
                   uint16_t selector, uint8_t type_attr)
 {

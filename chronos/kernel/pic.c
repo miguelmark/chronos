@@ -1,4 +1,5 @@
 #include <kernel/pic.h>
+#include <kernel/asm/io.h>
 
 void remap_pic(uint16_t offset1, uint16_t offset2)
 {

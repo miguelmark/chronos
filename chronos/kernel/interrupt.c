@@ -1,3 +1,6 @@
+#include <kernel/pic.h>
+#include <kernel/idt.h>
+#include <kernel/int_handlers.h>
 #include <kernel/interrupt.h>
 
 void *isr_routines[48] =

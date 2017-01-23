@@ -2,9 +2,6 @@
 #define INTERRUPT_H_INCLUDED
 
 #include <stdint.h>
-#include <kernel/int_handlers.h>
-#include <kernel/pic.h>
-#include <kernel/idt.h>
 
 
 enum protected_mode_exception {

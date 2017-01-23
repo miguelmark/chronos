@@ -1,4 +1,5 @@
 #include <kernel/tty.h>
+#include <kernel/asm/io.h>
 
 char scrollback_buffer[SCROLLBACK_BUFFER_SIZE];
 

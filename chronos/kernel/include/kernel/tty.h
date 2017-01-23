@@ -2,7 +2,6 @@
 #define TTY_H_INCLUDED
 
 #include <stdbool.h>
-#include <kernel/asm/io.h>
 #include <kernel/vga.h>
 
 #define SCROLLBACK_BUFFER_SIZE VGA_SCREEN_SIZE * 4 + 1

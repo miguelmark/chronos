@@ -1,6 +1,6 @@
 #include <kernel/pit.h>
 #include <kernel/interrupt.h>
-#include <asm/io.h>
+#include <kernel/asm/io.h>
 #include <stdio.h>
 
 static unsigned int pit_tick_rate = 18;

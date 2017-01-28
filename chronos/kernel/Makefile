@@ -1,4 +1,4 @@
-TARGET_ARCH:=i386
+TARGET_ARCH?=i686
 
 DEST_DIR?=
 PREFIX?=/usr/local
@@ -8,7 +8,7 @@ INCLUDE_DIR=$(PREFIX)/include
 LIB_DIR=$(PREFIX)/lib
 ASM_DIR?=asm
 
-HOST?=i686-elf
+HOST?=${TARGET_ARCH}-elf
 CC=$(HOST)-gcc
 AS=$(HOST)-as
 # Declaring some options for building

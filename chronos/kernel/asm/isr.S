@@ -1,296 +1,76 @@
 .section .text
-# Stage-1 interrupt handler routines
-# These functions act as forwarders
-# to the main handler stub
-.global do_isr0
-.global do_isr1
-.global do_isr2
-.global do_isr3
-.global do_isr4
-.global do_isr5
-.global do_isr6
-.global do_isr7
-.global do_isr8
-.global do_isr9
-.global do_isr10
-.global do_isr11
-.global do_isr12
-.global do_isr13
-.global do_isr14
-.global do_isr15
-.global do_isr16
-.global do_isr17
-.global do_isr18
-.global do_isr19
-.global do_isr20
-.global do_isr21
-.global do_isr22
-.global do_isr23
-.global do_isr24
-.global do_isr25
-.global do_isr26
-.global do_isr27
-.global do_isr28
-.global do_isr29
-.global do_isr30
-.global do_isr31
-.global do_isr32
-.global do_isr33
-.global do_isr34
-.global do_isr35
-.global do_isr36
-.global do_isr37
-.global do_isr38
-.global do_isr39
-.global do_isr40
-.global do_isr41
-.global do_isr42
-.global do_isr43
-.global do_isr44
-.global do_isr45
-.global do_isr46
-.global do_isr47
+.macro isr_no_code id=0
+.global do_isr\id
+.type do_isr\id, @function
+do_isr\id:
+    cli
+    push $0 # push a dummy value on the stack
+    push $\id
+    jmp isr_stub
+.endm
 
-# TODO: finish renaming these functions
-do_isr0:
+.macro isr_w_code id=0
+.global do_isr\id
+.type do_isr\id, @function
+do_isr\id:
     cli
-    push $0 # dummy value for stack uniformity
-    push $0 # isr id
+    push $\id
     jmp isr_stub
-do_isr1:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $1 # isr id
-    jmp isr_stub
-do_isr2:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $2 # isr id
-    jmp isr_stub
-do_isr3:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $3 # isr id
-    jmp isr_stub
-do_isr4:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $4 # isr id
-    jmp isr_stub
-do_isr5:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $5 # isr id
-    jmp isr_stub
-do_isr6:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $6 # isr id
-    jmp isr_stub
-do_isr7:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $7 # isr id
-    jmp isr_stub
-do_isr8:
-    cli
-    push $8 # isr id
-    jmp isr_stub
-do_isr9:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $9 # isr id
-    jmp isr_stub
-do_isr10:
-    cli
-    push $10 # isr id
-    jmp isr_stub
-do_isr11:
-    cli
-    push $11 # isr id
-    jmp isr_stub
-do_isr12:
-    cli
-    push $12 # isr id
-    jmp isr_stub
-do_isr13:
-    cli
-    push $13 # isr id
-    jmp isr_stub
-do_isr14:
-    cli
-    push $14 # isr id
-    jmp isr_stub
-do_isr15:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $15 # isr id
-    jmp isr_stub
-do_isr16:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $16 # isr id
-    jmp isr_stub
-do_isr17:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $17 # isr id
-    jmp isr_stub
-do_isr18:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $18 # isr id
-    jmp isr_stub
-do_isr19:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $19 # isr id
-    jmp isr_stub
-do_isr20:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $20 # isr id
-    jmp isr_stub
-do_isr21:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $21 # isr id
-    jmp isr_stub
-do_isr22:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $22 # isr id
-    jmp isr_stub
-do_isr23:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $23 # isr id
-    jmp isr_stub
-do_isr24:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $24 # isr id
-    jmp isr_stub
-do_isr25:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $25 # isr id
-    jmp isr_stub
-do_isr26:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $26 # isr id
-    jmp isr_stub
-do_isr27:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $27 # isr id
-    jmp isr_stub
-do_isr28:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $28 # isr id
-    jmp isr_stub
-do_isr29:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $29 # isr id
-    jmp isr_stub
-do_isr30:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $30 # isr id
-    jmp isr_stub
-do_isr31:
-    cli
-    push $0 # dummy value for stack uniformity
-    push $31 # isr id
-    jmp isr_stub
+.endm
 
+isr_no_code 0
+isr_no_code 1
+isr_no_code 2
+isr_no_code 3
+isr_no_code 4
+isr_no_code 5
+isr_no_code 6
+isr_no_code 7
+isr_w_code 8
+isr_no_code 9
+isr_w_code 10
+isr_w_code 11
+isr_w_code 12
+isr_w_code 13
+isr_w_code 14
+isr_no_code 15
+isr_no_code 16
+isr_w_code 17
+isr_no_code 18
+isr_no_code 19
+isr_no_code 20
+isr_no_code 21
+isr_no_code 22
+isr_no_code 23
+isr_no_code 24
+isr_no_code 25
+isr_no_code 26
+isr_no_code 27
+isr_no_code 28
+isr_no_code 29
+isr_no_code 30
+isr_no_code 31
 
 # isrs here will be mapped to gates 32 --> 47 (0x20 - 0x2F)
 # hardware interrupts
 
-do_isr32:
-    cli
-    push $0
-    push $32 # idt gate index
-    jmp isr_stub
-do_isr33:
-    cli
-    push $0
-    push $33
-    jmp isr_stub
-do_isr34:
-    cli
-    push $0
-    push $34
-    jmp isr_stub
-do_isr35:
-    cli
-    push $0
-    push $35
-    jmp isr_stub
-do_isr36:
-    cli
-    push $0
-    push $36
-    jmp isr_stub
-do_isr37:
-    cli
-    push $0
-    push $37
-    jmp isr_stub
-do_isr38:
-    cli
-    push $0
-    push $38
-    jmp isr_stub
-do_isr39:
-    cli
-    push $0
-    push $39
-    jmp isr_stub
-do_isr40:
-    cli
-    push $0
-    push $40
-    jmp isr_stub
-do_isr41:
-    cli
-    push $0
-    push $41
-    jmp isr_stub
-do_isr42:
-    cli
-    push $0
-    push $42
-    jmp isr_stub
-do_isr43:
-    cli
-    push $0
-    push $043
-    jmp isr_stub
-do_isr44:
-    cli
-    push $0
-    push $44
-    jmp isr_stub
-do_isr45:
-    cli
-    push $0
-    push $45
-    jmp isr_stub
-do_isr46:
-    cli
-    push $0
-    push $46
-    jmp isr_stub
-do_isr47:
-    cli
-    push $0
-    push $47
-    jmp isr_stub
+isr_no_code 32
+isr_no_code 33
+isr_no_code 34
+isr_no_code 35
+isr_no_code 36
+isr_no_code 37
+isr_no_code 38
+isr_no_code 39
+isr_no_code 40
+isr_no_code 41
+isr_no_code 42
+isr_no_code 43
+isr_no_code 44
+isr_no_code 45
+isr_no_code 46
+isr_no_code 47
+
 
 .extern handle_fault
 

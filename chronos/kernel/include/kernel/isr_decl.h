@@ -1,5 +1,5 @@
-#ifndef INT_HANDLERS_H_INCLUDED
-#define INT_HANDLERS_H_INCLUDED
+#ifndef ISR_DECL_H_INCLUDED
+#define ISR_DECL_H_INCLUDED
 
 void do_isr0();
 void do_isr1();
@@ -50,4 +50,4 @@ void do_isr45();
 void do_isr46();
 void do_isr47();
 
-#endif // INT_HANDLERS_H_INCLUDED
+#endif // ISR_DECL_H_INCLUDED

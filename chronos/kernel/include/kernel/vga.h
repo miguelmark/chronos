@@ -1,11 +1,11 @@
 #ifndef VGA_H_INCLUDED
 #define VGA_H_INCLUDED
-
 // 80x25 screen mode
 #define VGA_SCREEN_WIDTH 80
 #define VGA_SCREEN_HEIGHT 25
 #define VGA_SCREEN_SIZE VGA_SCREEN_HEIGHT * VGA_SCREEN_WIDTH
-#define VGA_TEXT_BUF_ADDR 0xB8000
+#define VGA_TEXT_BUF_ADDR 0xE00B8000
+
 enum vga_color {
     BLACK = 0x0,
     BLUE = 0x1,

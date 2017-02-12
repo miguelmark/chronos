@@ -1,10 +1,10 @@
 #include <kernel/gdt.h>
 #include <kernel/idt.h>
 #include <kernel/tty.h>
+#include <kernel/pit.h>
+#include <kernel/interrupt.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-const char* KERNEL_NAME = "chronos";
 
 void kernel_main()
 {
@@ -14,7 +14,9 @@ void kernel_main()
     install_idt();
     initialize_terminal();
     terminal_disable_cursor();
-    printf("* Welcome to the %s kernel\n", KERNEL_NAME);
+    install_pit();
+    initialize_interrupts();
+    printf("* Welcome to the %s kernel\n", "chronos");
     printf("* This the first boot ever!\n");
     for(;;) {}
 }

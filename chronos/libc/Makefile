@@ -1,4 +1,4 @@
-TARGET_ARCH:=i386
+TARGET_ARCH?=i686
 
 DEST_DIR?=
 PREFIX?=/usr/local
@@ -7,7 +7,7 @@ BOOT_DIR=$(EXEC_PREFIX)/boot
 INCLUDE_DIR=$(PREFIX)/include
 LIB_DIR?=$(EXEC_PREFIX)/lib
 
-HOST?=i686-elf
+HOST?=${TARGET_ARCH}-elf
 CC=$(HOST)-gcc
 AR=$(HOST)-ar
 # Declaring some options for building
